@@ -8,8 +8,8 @@ import javax.inject.Inject;
 
 public class LowLevelClient {
 
-    @Inject
-    @Client("${foo.bar}") RxHttpClient client;
+    @Inject @Client("${foo.bar}")
+    RxHttpClient client;
 
     public String hello() {
         HttpRequest<?> req = HttpRequest.GET("/");

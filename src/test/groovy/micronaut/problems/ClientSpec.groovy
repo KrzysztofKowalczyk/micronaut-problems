@@ -32,7 +32,7 @@ class ClientSpec extends Specification {
 
     def "Declarative client"() {
         given:
-        def client = context.getBean(DeclarativeClient)
+        def client = context.getBean(DeclarativeClient) // works fine
 
         when:
         def response = client.hello()
@@ -43,7 +43,7 @@ class ClientSpec extends Specification {
 
     def "Low level client"() {
         given:
-        def client = context.getBean(LowLevelClient)
+        def client = context.getBean(LowLevelClient) // does not work
 
         when:
         def response = client.hello()
