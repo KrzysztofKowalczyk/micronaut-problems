@@ -2,7 +2,6 @@ package micronaut.problems
 
 import com.stehno.ersatz.ErsatzServer
 import io.micronaut.context.ApplicationContext
-import io.micronaut.context.env.PropertySource
 import spock.lang.AutoCleanup
 import spock.lang.Specification
 
@@ -25,7 +24,7 @@ class ClientSpec extends Specification {
 
         context = ApplicationContext
             .build()
-            .propertySources(PropertySource.of("foo.bar": server.getHttpUrl()))
+            .properties("foo.bar": server.getHttpUrl())
             .build()
             .start()
     }
