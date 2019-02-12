@@ -41,9 +41,10 @@ class ClientSpec extends Specification {
         response == "hi"
     }
 
+    // issue https://github.com/micronaut-projects/micronaut-core/issues/1144
     def "Low level client"() {
         given:
-        def client = context.getBean(LowLevelClient) // does not work
+        def client = context.getBean(LowLevelClient) // works from >= 1.0.4
 
         when:
         def response = client.hello()
