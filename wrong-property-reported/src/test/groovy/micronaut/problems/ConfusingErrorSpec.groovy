@@ -9,6 +9,22 @@ import spock.lang.Specification
  * ScheduledTask is found and tries to start automatically but fails, because property.b is missing.
  * Then when trying to get other beans confusing errors are reported, different depending on
  * what is injected or which micronaut dependencies are on the classpath.
+ *
+ * In logs there is another exception if one has proper debug and check all the logs:
+ * ForkJoinPool.commonPool-worker-1] ERROR i.m.context.DefaultBeanContext - Error processing bean method Definition: micronaut.problems.ScheduledTask.void task() with processor (io.micronaut.scheduling.processor.ScheduledMethodProcessor@7131f599): Could not resolve placeholder ${property.b} in value: ${property.b}* io.micronaut.context.exceptions.ConfigurationException: Could not resolve placeholder ${property.b} in value: ${property.b}* 	at io.micronaut.context.env.DefaultPropertyPlaceholderResolver.resolveExpression(DefaultPropertyPlaceholderResolver.java:163)
+ * 	at io.micronaut.context.env.DefaultPropertyPlaceholderResolver.resolvePlaceholders(DefaultPropertyPlaceholderResolver.java:112)
+ * 	at io.micronaut.context.env.DefaultPropertyPlaceholderResolver.resolveRequiredPlaceholders(DefaultPropertyPlaceholderResolver.java:82)
+ * 	at io.micronaut.inject.annotation.EnvironmentConvertibleValuesMap.doResolveIfNecessary(EnvironmentConvertibleValuesMap.java:120)
+ * 	at io.micronaut.inject.annotation.EnvironmentConvertibleValuesMap.get(EnvironmentConvertibleValuesMap.java:79)
+ * 	at io.micronaut.core.annotation.AnnotationValue.get(AnnotationValue.java:162)
+ * 	at io.micronaut.core.value.ValueResolver.get(ValueResolver.java:54)
+ * 	at io.micronaut.scheduling.processor.ScheduledMethodProcessor.process(ScheduledMethodProcessor.java:85)
+ * 	at io.micronaut.context.DefaultBeanContext.lambda$null$24(DefaultBeanContext.java:1096)
+ * 	at java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1402)
+ * 	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+ * 	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+ * 	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+ * 	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
  */
 class ConfusingErrorSpec extends Specification {
 
