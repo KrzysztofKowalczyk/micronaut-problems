@@ -28,6 +28,30 @@ import spock.lang.Specification
  */
 class ConfusingErrorSpec extends Specification {
 
+    // behaviour here would be different if 'io.micronaut:micronaut-http-client' would not be
+    // on classpath, this is scary, see ConfusingErrorSpec2
+    def "null value"(){
+        given:
+        def context = ApplicationContext
+            .build()
+            .properties(
+                "property.a": "https://x" // providing "property.a"
+            )
+            .build()
+            .start()
+
+        Thread.sleep(100) // stops it from succeeding sometimes, see "null value 2"
+
+        when:
+        def a = context.getBean(ClassUsingValueOfPropertyA).getProperty()
+
+        then:
+        a == "https://x" // a is null
+
+        cleanup:
+        context.close()
+    }
+
     def "no such bean reported"(){
         given:
         def context = ApplicationContext
@@ -97,9 +121,9 @@ class ConfusingErrorSpec extends Specification {
         context.close()
     }
 
-    // behaviour here would be different if 'io.micronaut:micronaut-http-client' would not be
-    // on classpath, this is scary, see ConfusingErrorSpec2
-    def "null value"(){
+    // almost exactly the same test, but this one usually succeeds,
+    // sometimes it might fail, race condition with scheduled task?
+    def "null value 2"(){
         given:
         def context = ApplicationContext
             .build()
@@ -113,7 +137,7 @@ class ConfusingErrorSpec extends Specification {
         def a = context.getBean(ClassUsingValueOfPropertyA).getProperty()
 
         then:
-        a == "https://x" // a is null
+        a == "https://x"
 
         cleanup:
         context.close()
