@@ -68,8 +68,8 @@ class ConfusingErrorSpec extends Specification {
         then:
         noExceptionThrown()
         /*
-            No bean of type [com.tesco.magicpipe.http.client.ClassUsingPropertyA] exists. Ensure the class is declared a bean and if you are using Java or Kotlin make sure you have enabled annotation processing.
-            io.micronaut.context.exceptions.NoSuchBeanException: No bean of type [com.tesco.magicpipe.http.client.ClassUsingPropertyA] exists. Ensure the class is declared a bean and if you are using Java or Kotlin make sure you have enabled annotation processing.
+            No bean of type [micronaut.problems.ClassUsingPropertyA] exists. Ensure the class is declared a bean and if you are using Java or Kotlin make sure you have enabled annotation processing.
+            io.micronaut.context.exceptions.NoSuchBeanException: No bean of type [micronaut.problems.http.client.ClassUsingPropertyA] exists. Ensure the class is declared a bean and if you are using Java or Kotlin make sure you have enabled annotation processing.
                 at io.micronaut.context.DefaultBeanContext.getBeanInternal(DefaultBeanContext.java:1609)
                 at io.micronaut.context.DefaultBeanContext.getBean(DefaultBeanContext.java:501)
                 at ConfusingErrorSpec.no such bean reported(ConfusingErrorSpec.groovy:18)
