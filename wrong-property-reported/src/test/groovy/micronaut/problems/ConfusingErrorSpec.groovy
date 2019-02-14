@@ -90,10 +90,9 @@ class ConfusingErrorSpec extends Specification {
             .start()
 
         when:
-        def a = context.getBean(HttpClientUsingPropertyA).callSomething()
+        context.getBean(HttpClientUsingPropertyA).callSomething()
 
         then:
-        a == "https://x"
         thrown(HttpClientException)
 
         /*
