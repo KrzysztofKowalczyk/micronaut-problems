@@ -52,7 +52,7 @@ class ConfusingErrorSpec extends Specification {
         context.close()
     }
 
-    def "no such bean reported"(){
+    def "wrong property reported missing - DependencyInjectionException"(){
         given:
         def context = ApplicationContext
             .build()
@@ -68,11 +68,18 @@ class ConfusingErrorSpec extends Specification {
         then:
         noExceptionThrown()
         /*
-            No bean of type [micronaut.problems.ClassUsingPropertyA] exists. Ensure the class is declared a bean and if you are using Java or Kotlin make sure you have enabled annotation processing.
-            io.micronaut.context.exceptions.NoSuchBeanException: No bean of type [micronaut.problems.http.client.ClassUsingPropertyA] exists. Ensure the class is declared a bean and if you are using Java or Kotlin make sure you have enabled annotation processing.
-                at io.micronaut.context.DefaultBeanContext.getBeanInternal(DefaultBeanContext.java:1609)
+            io.micronaut.context.exceptions.DependencyInjectionException: Failed to inject value for field [property] of class: micronaut.problems.ClassUsingPropertyA
+
+            Message: Error resolving field value [property.a]. Property doesn't exist or cannot be converted
+            Path Taken: ClassUsingPropertyA.property
+                at io.micronaut.context.AbstractBeanDefinition.getValueForField(AbstractBeanDefinition.java:1185)
+                at io.micronaut.context.AbstractBeanDefinition.injectBeanField(AbstractBeanDefinition.java:717)
+                at io.micronaut.context.DefaultBeanContext.doCreateBean(DefaultBeanContext.java:1319)
+                at io.micronaut.context.DefaultBeanContext.createAndRegisterSingleton(DefaultBeanContext.java:1902)
+                at io.micronaut.context.DefaultBeanContext.getBeanForDefinition(DefaultBeanContext.java:1623)
+                at io.micronaut.context.DefaultBeanContext.getBeanInternal(DefaultBeanContext.java:1603)
                 at io.micronaut.context.DefaultBeanContext.getBean(DefaultBeanContext.java:501)
-                at ConfusingErrorSpec.no such bean reported(ConfusingErrorSpec.groovy:18)
+                at micronaut.problems.ConfusingErrorSpec.no such bean reported(ConfusingErrorSpec.groovy:67)
          */
 
         cleanup:
@@ -121,8 +128,8 @@ class ConfusingErrorSpec extends Specification {
     }
 
     // almost exactly the same test, but this one usually succeeds,
-    // sometimes it might fail, race condition with scheduled task?
-    def "null value 2"(){
+    // sometimes it might fail, race condition with scheduled task shutting down context
+    def "null value passing"(){
         given:
         def context = ApplicationContext
             .build()
