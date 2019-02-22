@@ -1,1 +1,4 @@
-include "declarative-client", "wrong-property-reported", "wrong-property-reported2"
+include "declarative-client",
+    "wrong-property-reported",
+    "wrong-property-reported2",
+    "proxy_problem"
