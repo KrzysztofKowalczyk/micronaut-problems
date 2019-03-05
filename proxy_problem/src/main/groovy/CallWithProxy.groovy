@@ -3,15 +3,20 @@ import io.micronaut.http.client.DefaultHttpClientConfiguration
 import io.vertx.core.net.ProxyOptions
 import io.vertx.ext.web.client.WebClientOptions
 import io.vertx.reactivex.ext.web.client.WebClient
+import org.littleshoot.proxy.HttpProxyServer
+import org.littleshoot.proxy.impl.DefaultHttpProxyServer
 
 import static io.vertx.reactivex.core.Vertx.vertx
 
 String url = "https://www.google.com"
 String path = "/"
 
-// given a random public proxy:
-// InetSocketAddress proxyAddress = new InetSocketAddress("43.240.103.105", 8080) // ReadTimeoutException: Read Timeout
-InetSocketAddress proxyAddress = new InetSocketAddress("45.6.92.18", 8080) // SSLException: handshake timed out
+// given a proxy
+HttpProxyServer server = DefaultHttpProxyServer.bootstrap()
+    .withPort(18080)
+    .start()
+
+InetSocketAddress proxyAddress = new InetSocketAddress("localhost", 18080) // SSLException: handshake timed out
 
 // Java connection
 
