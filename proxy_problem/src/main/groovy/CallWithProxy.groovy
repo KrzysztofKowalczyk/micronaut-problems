@@ -108,7 +108,7 @@ def client = new DefaultHttpClient_hack(url, conf)
 def mnResponse = client.exchange(path,String).blockingFirst()
 
 assert mnResponse.getBody().get() == "Hi!"
-assert mnResponse.header("proxied") == "true" // <-- proxy skipped when using ssl
+assert mnResponse.header("proxied") == "true"
 
 println "\n\nSuccess with hacked Micronaut!!!\n\n"
 
