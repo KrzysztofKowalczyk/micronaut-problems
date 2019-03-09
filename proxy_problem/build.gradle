@@ -38,6 +38,7 @@ dependencies {
     compile 'io.vertx:vertx-rx-java2:3.6.3'
     compile 'io.vertx:vertx-web-client:3.6.3'
     compile 'org.littleshoot:littleproxy:1.1.2'
+    compile 'com.stehno.ersatz:ersatz:1.9.0'
 
     testCompile "org.spockframework:spock-core:1.2-groovy-2.5"
 
